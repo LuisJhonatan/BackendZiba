@@ -11,16 +11,25 @@ export const getAllProducts = async () => {
         p.stock, 
         p.color, 
         p.description, 
+        p.rating, 
         c.type AS category, 
-        pi.image_url AS image
+        GROUP_CONCAT(pi.image_url) AS images
       FROM 
         product p
       LEFT JOIN 
         category c ON p.id_category = c.id_category
       LEFT JOIN 
         product_image pi ON p.id_product = pi.id_product
+      GROUP BY 
+        p.id_product
     `);
-    return rows;
+
+    const products = rows.map(product => ({
+      ...product,
+      images: product.images ? product.images.split(',') : []
+    }));
+
+    return products;
   } catch (error) {
     console.error("Error al obtener todos los productos:", error);
     throw new Error("Error en la base de datos");

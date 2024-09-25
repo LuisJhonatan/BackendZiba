@@ -5,7 +5,7 @@ CREATE TABLE users (
   password VARCHAR(255) NOT NULL,
   name VARCHAR(100) NOT NULL,
   phone VARCHAR(15),
-  photo VARCHAR(500) DEFAULT 'https://i.ibb.co/rcHvPqv/imagen-2024-07-30-231911755.png'
+  photo VARCHAR(500) DEFAULT 'https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-image-182145777.jpg'
 );
 
 
@@ -23,6 +23,7 @@ CREATE TABLE product (
   stock INT NOT NULL,
   color VARCHAR(50) NOT NULL,
   description TEXT,
+  rating DECIMAL(10, 2) DEFAULT 0.0,
   FOREIGN KEY (id_category) REFERENCES category(id_category)
 );
 
@@ -105,78 +106,110 @@ CREATE TABLE review (
   FOREIGN KEY (id_user) REFERENCES users(id_user)
 );
 
-
-INSERT INTO users (email, password, name, phone) VALUES
-('john.doe@example.com', 'hashedpassword1', 'John Doe', '1234567890'),
-('jane.smith@example.com', 'hashedpassword2', 'Jane Smith', '0987654321'),
-('alice.williams@example.com', 'hashedpassword3', 'Alice Williams', '1231231234'),
-('bob.johnson@example.com', 'hashedpassword4', 'Bob Johnson', '4564564567'),
-('eve.brown@example.com', 'hashedpassword5', 'Eve Brown', '7897897890');
-
+INSERT INTO users (email, password, name, phone, photo) VALUES
+('user1@example.com', 'password1', 'User One', '1234567890', NULL),
+('user2@example.com', 'password2', 'User Two', '2345678901', NULL),
+('user3@example.com', 'password3', 'User Three', '3456789012', NULL),
+('user4@example.com', 'password4', 'User Four', '4567890123', NULL),
+('user5@example.com', 'password5', 'User Five', '5678901234', NULL);
 
 INSERT INTO category (type) VALUES
-('Handbags'),
-('Backpacks'),
-('Pencil Cases'),
-('Wallets'),
-('Travel Bags');
+('Bags'),
+('Shoes'),
+('Accessories'),
+('Clothing'),
+('Electronics');
 
+INSERT INTO product (id_category, name_product, price, stock, color, description, rating) VALUES
+(1, 'Leather Bag', 120.50, 10, 'Black', 'A stylish black leather bag.', 4.5),
+(2, 'Running Shoes', 85.00, 20, 'Blue', 'Comfortable running shoes.', 4.2),
+(3, 'Wristwatch', 150.00, 15, 'Silver', 'Elegant silver wristwatch.', 4.8),
+(4, 'Denim Jacket', 60.00, 30, 'Blue', 'Classic denim jacket.', 4.3),
+(5, 'Smartphone', 999.99, 5, 'Black', 'Latest model smartphone.', 4.7),
+(1, 'Tote Bag', 75.00, 25, 'Brown', 'Spacious tote bag for daily use.', 4.5),
+(1, 'Backpack', 55.00, 15, 'Black', 'Durable backpack for travel.', 4.0),
+(2, 'Sneakers', 65.00, 18, 'White', 'Stylish white sneakers for everyday wear.', 4.3),
+(2, 'Heels', 120.00, 10, 'Red', 'Elegant red heels for formal occasions.', 4.8),
+(3, 'Sunglasses', 45.00, 30, 'Black', 'Trendy sunglasses for summer.', 4.2);
 
-INSERT INTO product (id_category, name_product, price, stock, color, description) VALUES
-(1, 'Leather Handbag', 49.99, 100, 'Black', 'A stylish black leather handbag perfect for everyday use.'),
-(2, 'Canvas Backpack', 39.99, 150, 'Blue', 'A durable blue canvas backpack suitable for all occasions.'),
-(3, 'Pencil Case', 9.99, 200, 'Red', 'A compact red pencil case to store all your writing essentials.'),
-(4, 'Bifold Wallet', 19.99, 250, 'Brown', 'A classic brown leather bifold wallet with multiple card slots.'),
-(5, 'Duffel Bag', 59.99, 80, 'Green', 'A spacious green duffel bag ideal for travel or gym.');
-
-
+-- Leather Bag (2 images)
 INSERT INTO product_image (id_product, image_url) VALUES
-(1, 'https://example.com/images/leather-handbag1.png'),
-(1, 'https://example.com/images/leather-handbag2.png'),
-(2, 'https://example.com/images/canvas-backpack1.png'),
-(3, 'https://example.com/images/pencil-case1.png'),
-(4, 'https://example.com/images/bifold-wallet1.png');
+(1, 'https://example.com/images/leather_bag_1.jpg'),
+(1, 'https://example.com/images/leather_bag_2.jpg');
 
+-- Running Shoes (2 images)
+INSERT INTO product_image (id_product, image_url) VALUES
+(2, 'https://example.com/images/running_shoes_1.jpg'),
+(2, 'https://example.com/images/running_shoes_2.jpg');
+
+-- Wristwatch (2 images)
+INSERT INTO product_image (id_product, image_url) VALUES
+(3, 'https://example.com/images/wristwatch_1.jpg'),
+(3, 'https://example.com/images/wristwatch_2.jpg');
+
+-- Denim Jacket (no images)
+
+-- Smartphone (1 image)
+INSERT INTO product_image (id_product, image_url) VALUES
+(5, 'https://example.com/images/smartphone_1.jpg');
+
+-- Tote Bag (2 imágenes)
+INSERT INTO product_image (id_product, image_url) VALUES
+(6, 'https://i.postimg.cc/bNGbY5cP/cartera1.png'),
+(6, 'https://i.postimg.cc/ZK1NWL4d/cartera2.jpg');
+
+-- Backpack (2 imágenes)
+INSERT INTO product_image (id_product, image_url) VALUES
+(7, 'https://i.postimg.cc/CMrkgg2J/cartera3.jpg'),
+(7, 'https://i.postimg.cc/v84LDTfC/mochila1.png');
+
+-- Sneakers (2 imágenes)
+INSERT INTO product_image (id_product, image_url) VALUES
+(8, 'https://i.postimg.cc/hj5jHSGd/mochila2.png'),
+(8, 'https://i.postimg.cc/JtwhzPZ7/mochila3.png');
+
+-- Heels (1 imagen)
+INSERT INTO product_image (id_product, image_url) VALUES
+(9, 'https://i.postimg.cc/L5gXSrq0/mochila4.png');
+
+-- Sunglasses (1 imagen)
+INSERT INTO product_image (id_product, image_url) VALUES
+(10, 'https://i.postimg.cc/CMrkgg2J/cartera3.jpg');
 
 INSERT INTO address (id_user, address_line1, address_line2, city, state, postal_code, country) VALUES
-(1, '123 Main St', 'Apt 1', 'Springfield', 'Illinois', '62704', 'USA'),
-(2, '456 Elm St', 'Suite 200', 'Seattle', 'Washington', '98101', 'USA'),
-(3, '789 Oak St', NULL, 'Austin', 'Texas', '73301', 'USA'),
-(4, '101 Pine St', 'Floor 3', 'San Francisco', 'California', '94103', 'USA'),
-(5, '202 Maple St', NULL, 'Miami', 'Florida', '33101', 'USA');
-
+(1, '123 Main St', '', 'New York', 'NY', '10001', 'USA'),
+(2, '456 Park Ave', 'Apt 23B', 'Los Angeles', 'CA', '90001', 'USA'),
+(3, '789 Broadway', '', 'San Francisco', 'CA', '94103', 'USA'),
+(4, '1011 Ocean Dr', '', 'Miami', 'FL', '33101', 'USA'),
+(5, '1213 Sunset Blvd', 'Apt 9', 'Austin', 'TX', '73301', 'USA');
 
 INSERT INTO payment_method (method_name) VALUES
 ('Credit Card'),
-('Debit Card'),
 ('PayPal'),
 ('Bank Transfer'),
+('Cash'),
 ('Cryptocurrency');
 
-
 INSERT INTO `order` (id_user, id_address, total, order_date, payment_method_id, state) VALUES
-(1, 1, 99.98, '2024-08-27', 1, true),
-(2, 2, 39.99, '2024-08-26', 2, true),
-(3, 3, 19.99, '2024-08-25', 3, false),
-(4, 4, 59.99, '2024-08-24', 4, true),
-(5, 5, 29.98, '2024-08-23', 5, false);
-
+(1, 1, 120.50, '2024-09-01', 1, false),
+(2, 2, 85.00, '2024-09-02', 2, true),
+(3, 3, 150.00, '2024-09-03', 3, false),
+(4, 4, 60.00, '2024-09-04', 4, true),
+(5, 5, 999.99, '2024-09-05', 5, true);
 
 INSERT INTO order_detail (id_order, sub_total, amount) VALUES
-(1, 49.99, 2),
-(2, 39.99, 1),
-(3, 19.99, 1),
-(4, 59.99, 1),
-(5, 29.98, 1);
-
+(1, 120.50, 1),
+(2, 85.00, 1),
+(3, 150.00, 1),
+(4, 60.00, 1),
+(5, 999.99, 1);
 
 INSERT INTO voucher (id_order, voucher_number) VALUES
-(1, 'VOUCHER12345'),
-(2, 'VOUCHER67890'),
-(3, 'VOUCHER11121'),
-(4, 'VOUCHER13141'),
-(5, 'VOUCHER15161');
-
+(1, 'VOUCHER001'),
+(2, 'VOUCHER002'),
+(3, 'VOUCHER003'),
+(4, 'VOUCHER004'),
+(5, 'VOUCHER005');
 
 INSERT INTO product_order_detail (id_product, id_order_detail) VALUES
 (1, 1),
@@ -185,10 +218,9 @@ INSERT INTO product_order_detail (id_product, id_order_detail) VALUES
 (4, 4),
 (5, 5);
 
-
 INSERT INTO review (id_product, id_user, rating, comment) VALUES
-(1, 1, 5, 'Amazing handbag!'),
-(2, 2, 4, 'Good quality backpack, worth the price.'),
-(3, 3, 3, 'Decent pencil case, but could be better.'),
-(4, 4, 5, 'Love this wallet, highly recommended!'),
-(5, 5, 4, 'The duffel bag is great for the gym. Sturdy and spacious.');
+(1, 1, 5, 'Great product!'),
+(2, 2, 4, 'Comfortable and stylish.'),
+(3, 3, 5, 'Excellent quality!'),
+(4, 4, 3, 'Good, but could be better.'),
+(5, 5, 5, 'Absolutely worth it!');
